@@ -5,12 +5,13 @@
 
 {% block content %}
   <h1>{{ group.title }}</h1>
-  <article>
-    {% for post in posts %}
+  <h3>Group about {{ group.title }}</h3>
+  {% for post in posts %}
+    <article>
       <br>Автор: {{ post.author.get_full_name }},
       <br>Дата публикации: {{ post.pub_date|date:"d E Y" }}
       <p>{{ post.text|linebreaksbr }}</p>
       {% if not forloop.last %}<hr>{% endif %}
-    {% endfor %}
-  </article>
+    </article>
+  {% endfor %}
 {% endblock %}
