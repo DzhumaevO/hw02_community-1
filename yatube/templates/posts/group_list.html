@@ -5,7 +5,7 @@
 
 {% block content %}
   <h1>{{ group.title }}</h1>
-  <h3>Group about {{ group.title }}</h3>
+  <h3>{{ group.description }}</h3>
   {% for post in posts %}
     <article>
       <br>Автор: {{ post.author.get_full_name }},
