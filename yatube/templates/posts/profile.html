@@ -1,43 +1,55 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Профайл пользователя {{ author.get_full_name }}
+  Профайл пользователя {{ author.get_full_name }}
 {% endblock %}
 
 {% block content %}
-<h1>Все посты пользователя {{ author.get_full_name }} </h1>
-<h3>Всего постов: {{ author.posts.count }}</h3>
-{% for post in page_obj %}
-<article>
-  <ul>
-    <li>
-      Автор: {{ author.get_full_name }}
-      <a href="{% url 'posts:profile' post.author %}">
+  <h1>Все посты пользователя {{ author.get_full_name }} </h1>
+  <h3>Всего постов: {{ author.posts.count }}</h3>
+  {% for post in page_obj %}
+    <article>
+      <ul>
+        <li>
+          Автор: {{ author.get_full_name }}
+        </li>
+        <li>
+          Дата публикации: {{ post.pub_date|date:"d E Y" }}
+        </li>
+      </ul>
+      <p>
+        {{ post.text|linebreaksbr }}
+      </p>
+
+      <a class="btn btn-primary" href="{% url 'posts:post_detail' post.id %}">
+        подробная информация
+      </a>
+      <br>
+      <br>
+      {% if post.author == request.user %}
+        <a class="btn btn-primary" href="{% url 'posts:post_edit' post.id %}">
+          Редактировать запись
+        </a>
+      {% endif %}
+      <br>
+      <br>
+      <a class="btn btn-primary" href="{% url 'posts:profile' post.author %}">
         все посты пользователя
       </a>
-    </li>
-    <li>
-      Дата публикации: {{post.pub_date|date:"d E Y"}}
-    </li>
-  </ul>
-  <p>
-    {{post.text|linebreaksbr}}
-  </p>
-  <a href="{% url 'posts:post_detail' post.id %}">
-    подробная информация
-  </a>
-</article>
-{% if post.group %}
-<a href="{% url 'posts:group_list' post.group.slug %}">
-  все записи группы
-</a>
-<br>
-<br>
-<br>
-{% endif %}
-{% endfor %}
-<hr>
-{% if not forloop.last %}
-<hr>{% endif %}
-<!-- Здесь подключён паджинатор. Зачем? если он прекрасно уживается в base?-->
+      <br>
+      <br>
+    </article>
+    {% if post.group %}
+      <a class="btn btn-primary" href="{% url 'posts:group_list' post.group.slug %}">
+        все записи группы
+      </a>
+      <br>
+      <br>
+      <br>
+    {% endif %}
+  {% endfor %}
+  <hr>
+  {% if not forloop.last %}
+    <hr>{% endif %}
+  <!-- Здесь подключён паджинатор. Зачем? если он прекрасно уживается в base?-->
 {% endblock %}

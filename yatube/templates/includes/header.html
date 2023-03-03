@@ -28,8 +28,8 @@
 
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link"
-             href="{% url 'posts:index' %}">
+          <a class="nav-link {% if view_name == 'posts:post_create' %}active{% endif %}"
+             href="{% url 'posts:post_create' %}">
             Новая запись
           </a>
         </li>
@@ -37,7 +37,7 @@
 
         <li class="nav-item">
           <a class="nav-link link-light"
-             href="{% url 'posts:index' %}">
+             href="{% url 'users:password_change_form' %}">
             Изменить пароль
           </a>
         </li>
