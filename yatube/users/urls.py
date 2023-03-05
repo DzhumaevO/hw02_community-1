@@ -13,10 +13,10 @@ urlpatterns = [
         name='login'
     ),
     path(
-      'logout/',
-      LogoutView.as_view
-      (template_name='users/logged_out.html'),
-      name='logout'
+        'logout/',
+        LogoutView.as_view
+        (template_name='users/logged_out.html'),
+        name='logout'
     ),
     path(
         'signup/',
@@ -36,9 +36,9 @@ urlpatterns = [
         name='password_change_form'
     ),
     path(
-         'done/',
-         LoginView.as_view
-         (template_name='users/password_change_done.html'),
-         name='done'
+        'done/',
+        LoginView.as_view
+        (template_name='users/password_change_done.html'),
+        name='done'
      )
 ]
