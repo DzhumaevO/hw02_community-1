@@ -26,30 +26,22 @@
       </a>
       <br>
       <br>
-      {% if post.author == request.user %}
-        <a class="btn btn-primary" href="{% url 'posts:post_edit' post.id %}">
-          Редактировать запись
-        </a>
-      {% endif %}
-      <br>
-      <br>
       <a class="btn btn-primary" href="{% url 'posts:profile' post.author %}">
         все посты пользователя
       </a>
       <br>
       <br>
-    </article>
-    {% if post.group %}
+      {% if post.group %}
       <a class="btn btn-primary" href="{% url 'posts:group_list' post.group.slug %}">
         все записи группы
       </a>
-      <br>
-      <br>
-      <br>
+    </article>
+  <br>
+  <br>
     {% endif %}
   {% endfor %}
   <hr>
   {% if not forloop.last %}
     <hr>{% endif %}
-  <!-- Здесь подключён паджинатор. Зачем? если он прекрасно уживается в base?-->
+{% include 'posts/includes/paginator.html' %}
 {% endblock %}

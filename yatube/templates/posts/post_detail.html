@@ -6,22 +6,22 @@
   <div class="row">
     <aside class="col-12 col-md-3">
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          Дата публикации: {{ post.pub_date|date:"d E Y" }}
-        </li>
-        <li class="list-group-item">
-          {% if post.group %}
+        {% if post.group %}
+          <li class="list-group-item">
+           Дата публикации: {{ post.pub_date|date:"d E Y" }}
+          </li>
+          <li class="list-group-item">
             Группа: {{ post.group.title }}
             <a href="{% url 'posts:group_list' post.group.slug %}">
               Все посты группы
             </a>
-          {% endif %}
-        </li>
+          </li>
+        {% endif %}
         <li class="list-group-item">
-          Автор: {{ author.first_name }} {{ author.last_name }}
+          Автор: {{ post.author.get_full_name }}
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
-          Всего постов автора: <span>{{ author.posts.count }}</span>
+          Всего постов автора: <span>{{ post.author.posts.count }}</span>
         </li>
         <li class="list-group-item">
           <a href="{% url 'posts:profile' post.author %}">
@@ -32,7 +32,7 @@
     </aside>
     <article class="col-12 col-md-9">
       <p>
-        {{ post.text }}
+        {{ post.text|linebreaksbr }}
       </p>
       {% if post.author == request.user %}
         <a class="btn btn-primary" href="{% url 'posts:post_edit' post.id %}">Редактировать
